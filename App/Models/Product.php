@@ -1,77 +1,56 @@
-<<<<<<< HEAD
 <?php
 namespace App\Models;
-
-use PDO;
 
 class Product extends BaseModel
 {
     public function all()
     {
-        $sql = "SELECT * FROM students";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->pdo
+            ->query("SELECT * FROM students")
+            ->fetchAll();
     }
 
     public function find($id)
     {
-        $sql = "SELECT * FROM students WHERE id = ?";
-        $stmt = $this->pdo->prepare($sql);
+        $id = (int)$id;
+        $stmt = $this->pdo->prepare("SELECT * FROM students WHERE id = ?");
         $stmt->execute([$id]);
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function deleteById($id)
-    {
-        $sql = "DELETE FROM students WHERE id = ?";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$id]);
+        return $stmt->fetch();
     }
 
     public function insert($data)
     {
-        $sql = "INSERT INTO students (fullname, student_code, email)
-                VALUES (:fullname, :student_code, :email)";
-
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([
-            ':fullname' => $data['fullname'],
-            ':student_code' => $data['student_code'],
-            ':email' => $data['email']
+        $stmt = $this->pdo->prepare(
+            "INSERT INTO students (fullname, student_code, email)
+             VALUES (?, ?, ?)"
+        );
+        return $stmt->execute([
+            $data['fullname'],
+            $data['student_code'],
+            $data['email']
         ]);
     }
+
     public function update($id, $data)
     {
-        $sql = "UPDATE students 
-                SET fullname = :fullname,
-                    student_code = :student_code,
-                    email = :email
-                WHERE id = :id";
-
-        $stmt = $this->pdo->prepare($sql);
+        $id = (int)$id;
+        $stmt = $this->pdo->prepare(
+            "UPDATE students
+             SET fullname = ?, student_code = ?, email = ?
+             WHERE id = ?"
+        );
         return $stmt->execute([
-            ':fullname' => $data['fullname'],
-            ':student_code' => $data['student_code'],
-            ':email' => $data['email'],
-            ':id' => $id
+            $data['fullname'],
+            $data['student_code'],
+            $data['email'],
+            $id
         ]);
     }
 
-}
-=======
-<?php
-namespace App\Models;
-
-class Product extends BaseModel {
-
-    public function getAllProducts() {
-        $sql = "SELECT * FROM students";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    public function deleteById($id)
+    {
+        $id = (int)$id;
+        $stmt = $this->pdo->prepare("DELETE FROM students WHERE id = ?");
+        return $stmt->execute([$id]);
     }
 }
->>>>>>> f2d9616775d0f280c25faf26ecd4eecc080c1551

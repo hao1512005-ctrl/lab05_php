@@ -1,51 +1,42 @@
-<<<<<<< HEAD
 <?php
 require 'vendor/autoload.php';
 
 use App\Controllers\ProductController;
 
-$page = $_GET['page'] ?? 'product-list';
+$page = $_GET['page'] ?? 'product_list';
 
 $controller = new ProductController();
 
 switch ($page) {
-    case 'product-list':
+    case 'product_list':
         $controller->index();
         break;
 
-    case 'product-delete':
-        $controller->delete();
+    case 'product_add':
+        $controller->create();
         break;
 
-    case 'product-detail':
+    case 'product_store':
+        $controller->store();
+        break;
+
+    case 'product_detail':
         $controller->detail();
         break;
 
+    case 'product_edit':
+        $controller->edit();
+        break;
+
+    case 'product_update':
+        $controller->update();
+        break;
+
+    case 'product_delete':
+        $controller->delete();
+        break;
+
     default:
+        http_response_code(404);
         echo "404 - Page Not Found";
-    case 'product-add':
-    $controller->create();
-    break;
-
-    case 'product-store':
-    $controller->store();
-    break;
-    
-    case 'product-edit':
-    $controller->edit();
-    break;
-
-    case 'product-update':
-    $controller->update();
-    break;
-
 }
-=======
-<?php
-require 'vendor/autoload.php';
-
-use App\Controllers\ProductController;
-
-$controller = new ProductController();
-$controller->index();
->>>>>>> f2d9616775d0f280c25faf26ecd4eecc080c1551

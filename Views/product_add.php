@@ -16,7 +16,7 @@
         </div>
     <?php endif; ?>
 
-    <form method="POST" action="index.php?page=product-store">
+    <form method="POST" action="index.php?page=product_store">
         <div class="mb-3">
             <label class="form-label">Họ tên</label>
             <input type="text" name="fullname" class="form-control">
@@ -33,7 +33,7 @@
         </div>
 
         <button type="submit" class="btn btn-success">Lưu</button>
-        <a href="index.php?page=product-list" class="btn btn-secondary">Hủy</a>
+        <a href="index.php?page=product_list" class="btn btn-secondary">Hủy</a>
     </form>
 </div>
 

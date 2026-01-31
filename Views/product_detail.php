@@ -36,7 +36,7 @@
         </tr>
     </table>
 
-    <a href="index.php?page=product-list" class="btn btn-secondary">
+    <a href="index.php?page=product_list" class="btn btn-secondary">
         ⬅ Quay lại danh sách
     </a>
 

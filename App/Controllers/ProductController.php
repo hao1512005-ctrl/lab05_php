@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 namespace App\Controllers;
 
@@ -10,35 +9,14 @@ class ProductController
     {
         $model = new Product();
         $products = $model->all();
-        include __DIR__ . "/../../Views/product_list.php";
-    }
-
-    public function delete()
-    {
-        if (!isset($_GET['id'])) die("Thiếu ID");
-
-        $model = new Product();
-        $model->deleteById($_GET['id']);
-
-        header("Location: index.php?page=product-list");
-
-        exit;
-    }
-
-    public function detail()
-    {
-        if (!isset($_GET['id'])) die("Thiếu ID");
-
-        $model = new Product();
-        $product = $model->find($_GET['id']);
-
-        include __DIR__ . "/../../Views/product_detail.php";
+        include __DIR__ . "/../../views/product_list.php";
     }
 
     public function create()
     {
         $error = null;
-        include __DIR__ . "/../../Views/product_add.php";
+        $old = [];
+        include __DIR__ . "/../../views/product_add.php";
     }
 
     public function store()
@@ -53,73 +31,79 @@ class ProductController
 
         if ($fullname === '' || $student_code === '' || $email === '') {
             $error = "Vui lòng nhập đầy đủ thông tin";
-            include __DIR__ . "/../../Views/product_add.php";
+            $old = $_POST;
+            include __DIR__ . "/../../views/product_add.php";
             return;
         }
 
         $model = new Product();
-        $model->insert([
-            'fullname' => $fullname,
-            'student_code' => $student_code,
-            'email' => $email
-        ]);
+        $model->insert(compact('fullname', 'student_code', 'email'));
 
-        header("Location: index.php?page=product-list");
-
+        header("Location: index.php?page=product_list");
         exit;
     }
+
     public function edit()
     {
-        if (!isset($_GET['id'])) die("Thiếu ID");
+        $id = (int)($_GET['id'] ?? 0);
+        if ($id <= 0) die("ID không hợp lệ");
 
         $model = new Product();
-        $product = $model->find($_GET['id']);
+        $product = $model->find($id);
 
+        if (!$product) die("Không tìm thấy sinh viên");
+
+        $error = null;
         include __DIR__ . "/../../views/product_edit.php";
     }
+
     public function update()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             die("Phương thức không hợp lệ");
         }
 
-        $id = $_POST['id'];
-        $fullname = trim($_POST['fullname']);
-        $student_code = trim($_POST['student_code']);
-        $email = trim($_POST['email']);
+        $id = (int)($_POST['id'] ?? 0);
+        $fullname = trim($_POST['fullname'] ?? '');
+        $student_code = trim($_POST['student_code'] ?? '');
+        $email = trim($_POST['email'] ?? '');
 
         if ($fullname === '' || $student_code === '' || $email === '') {
             $error = "Vui lòng nhập đầy đủ thông tin";
-            $product = $_POST;
+            $product = compact('id', 'fullname', 'student_code', 'email');
             include __DIR__ . "/../../views/product_edit.php";
             return;
         }
 
         $model = new Product();
-        $model->update($id, [
-            'fullname' => $fullname,
-            'student_code' => $student_code,
-            'email' => $email
-        ]);
+        $model->update($id, compact('fullname', 'student_code', 'email'));
 
-        header("Location: index.php?page=product-list");
+        header("Location: index.php?page=product_list");
         exit;
     }
 
-}
-=======
-<?php
-namespace App\Controllers;
+    public function delete()
+    {
+        $id = (int)($_GET['id'] ?? 0);
+        if ($id <= 0) die("ID không hợp lệ");
 
-use App\Models\Product;
-
-class ProductController {
-
-    public function index() {
         $model = new Product();
-        $students = $model->getAllProducts();
+        $model->deleteById($id);
 
-        include "Views/product_list.php";
+        header("Location: index.php?page=product_list");
+        exit;
+    }
+
+    public function detail()
+    {
+        $id = (int)($_GET['id'] ?? 0);
+        if ($id <= 0) die("ID không hợp lệ");
+
+        $model = new Product();
+        $product = $model->find($id);
+
+        if (!$product) die("Không tìm thấy sinh viên");
+
+        include __DIR__ . "/../../views/product_detail.php";
     }
 }
->>>>>>> f2d9616775d0f280c25faf26ecd4eecc080c1551

@@ -4,7 +4,7 @@
     <p style="color:red"><?= $error ?></p>
 <?php endif; ?>
 
-<form action="index.php?page=product-update" method="POST">
+<form action="index.php?page=product_update" method="POST">
     <input type="hidden" name="id" value="<?= $product['id'] ?>">
 
     <label>Họ tên</label><br>
