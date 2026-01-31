@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 require 'vendor/autoload.php';
 
@@ -39,3 +40,12 @@ switch ($page) {
     break;
 
 }
+=======
+<?php
+require 'vendor/autoload.php';
+
+use App\Controllers\ProductController;
+
+$controller = new ProductController();
+$controller->index();
+>>>>>>> f2d9616775d0f280c25faf26ecd4eecc080c1551

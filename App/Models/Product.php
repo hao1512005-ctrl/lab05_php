@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 namespace App\Models;
 
@@ -60,3 +61,17 @@ class Product extends BaseModel
     }
 
 }
+=======
+<?php
+namespace App\Models;
+
+class Product extends BaseModel {
+
+    public function getAllProducts() {
+        $sql = "SELECT * FROM students";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+}
+>>>>>>> f2d9616775d0f280c25faf26ecd4eecc080c1551

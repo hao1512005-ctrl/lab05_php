@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 namespace App\Controllers;
 
@@ -106,3 +107,19 @@ class ProductController
     }
 
 }
+=======
+<?php
+namespace App\Controllers;
+
+use App\Models\Product;
+
+class ProductController {
+
+    public function index() {
+        $model = new Product();
+        $students = $model->getAllProducts();
+
+        include "Views/product_list.php";
+    }
+}
+>>>>>>> f2d9616775d0f280c25faf26ecd4eecc080c1551
